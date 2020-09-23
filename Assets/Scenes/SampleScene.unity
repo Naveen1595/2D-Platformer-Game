@@ -427,6 +427,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1456271419 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 399744412056611980, guid: 73360cdb4e1e7ed4897690f9d57fd0eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1456271415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1456271422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,3 +445,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c65127cad9773b4e8546b400e9370da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1456271419}

@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    /* private void OnCollisionEnter2D(Collision2D collision)
+     {
+         Debug.Log("Collision" + collision.gameObject.name);
+     }*/
+    public Animator animator;
+    private void Update()
     {
-        Debug.Log("Collision" + collision.gameObject.name);
+        float speed = Input.GetAxisRaw("Horizontal");
+        Debug.Log("Horizontal : " + speed);
+        animator.SetFloat("Speed", Mathf.Abs(speed));
+        
+        Vector3 scale = transform.localScale;
+        if (speed < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+            animator.SetBool("isRunning", true);
+        }
+        else if(speed > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+            animator.SetBool("isRunning", true);
+        }
+        else if(speed == 0)
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        transform.localScale = scale;
     }
 }
