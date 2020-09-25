@@ -445,4 +445,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c65127cad9773b4e8546b400e9370da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCollider: {fileID: 1456271417}
   animator: {fileID: 1456271419}
