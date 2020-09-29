@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb2d;
     float sizeOfY, sizeOfY_Crouch, offsetOfY, offsetOfY_Crouch, horizontal, vertical;
     float speed = 5;
-    float jumpMovement = 155;             
+    float jumpMovement = 200;             
     int crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     int totalCrouchTime = 10;           //total time till crouch animation will run after that crouch down animation will start
     bool jump, isRun, crouch, crouch_down, crouchActionCheck = false;
