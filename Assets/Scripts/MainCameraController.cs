@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class MainCameraController : MonoBehaviour
@@ -11,8 +10,13 @@ public class MainCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mainCameraposition = new Vector3(PlayerObject.transform.position.x, PlayerObject.transform.position.y,-50);
-        mainCamera.transform.position = mainCameraposition;
+        Vector3 mainCameraPosition = new Vector3(PlayerObject.transform.position.x, PlayerObject.transform.position.y,-50);
+        if (PlayerObject.transform.position.y < -6)
+        {
+            mainCameraPosition.y = -6f;
+        }
+        mainCamera.transform.position = mainCameraPosition;
+
 
     }
 }

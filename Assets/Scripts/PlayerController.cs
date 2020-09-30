@@ -7,12 +7,18 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb2d;
     float sizeOfY, sizeOfY_Crouch, offsetOfY, offsetOfY_Crouch, horizontal, vertical;
-    float speed = 5;
-    float jumpMovement = 200;             
-    int crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
-    int totalCrouchTime = 10;           //total time till crouch animation will run after that crouch down animation will start
+    float speed = 5f;
+    float jumpMovement = 200f;             
+    float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
+    float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
     bool jump, isRun, crouch, crouch_down, crouchActionCheck = false;
-    
+
+    string horizontalMovement = "Horizontal";
+    string verticalMovement = "Vertical";
+
+    float crouchPlayerSizeCollider = 0.8f;
+    float crouchPlayerOffsetCollider = 0.4f;
+    float restartPosition = -18f;
 
     private void Awake()
     {
@@ -20,25 +26,30 @@ public class PlayerController : MonoBehaviour
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
         
         sizeOfY = playerCollider.size.y;
-        sizeOfY_Crouch = playerCollider.size.y - 0.8f;
+        sizeOfY_Crouch = playerCollider.size.y - crouchPlayerSizeCollider;
         offsetOfY = playerCollider.offset.y;
-        offsetOfY_Crouch = playerCollider.offset.y - 0.4f;
+        offsetOfY_Crouch = playerCollider.offset.y - crouchPlayerOffsetCollider;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
+    }
+
+    //Fixed Update
+    private void FixedUpdate()
+    {
+        verticalMovementAnimation(vertical);
+        crouchAction(crouchActionCheck);
     }
 
     //Update
     private void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxisRaw(horizontalMovement);
+        vertical = Input.GetAxisRaw(verticalMovement);
         crouchActionCheck = Input.GetKey(KeyCode.LeftControl);
 
-        verticalMovementAnimation(vertical);
-        crouchAction(crouchActionCheck);
         animatorPlayerFun();  //function for animator parameters
         transformPlayerFun();
-
+        restartPlayer();
     }
 
     //Vertical Movement Animation
@@ -129,6 +140,14 @@ public class PlayerController : MonoBehaviour
             
     }
 
+    //Restart level
+    void restartPlayer()
+    {
+        if(gameObject.transform.position.y < restartPosition)
+        {
+            gameObject.transform.position = new Vector2(0f, 0f);
+        }
+    }
     //Animator Function
     void animatorPlayerFun()
     {
