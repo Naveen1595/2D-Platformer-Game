@@ -1,43 +1,72 @@
 ﻿
+using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
-{
-    public BoxCollider2D playerCollider;
-    public Animator animator;
-    public Rigidbody2D rb2d;
+{   
+    [SerializeField]
+    private BoxCollider2D playerCollider;
+
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private Rigidbody2D rb2d;
+
     float sizeOfY, sizeOfY_Crouch, offsetOfY, offsetOfY_Crouch, horizontal, vertical;
+
+    [SerializeField]
+    private ScoreController scoreController;
+
     float speed = 5f;
-    float jumpMovement = 200f;             
+    float jumpMovement = 3f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
-    bool jump, isRun, crouch, crouch_down, crouchActionCheck = false;
+    float totalJumpTimer = 5f;
+    float jumpTimer;
+    bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false;
 
     string horizontalMovement = "Horizontal";
     string verticalMovement = "Vertical";
 
+    bool isCollision = false;
+    
     float crouchPlayerSizeCollider = 0.8f;
     float crouchPlayerOffsetCollider = 0.4f;
     float restartPosition = -18f;
 
+
+   
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("GroundTag"))
+            isCollision = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("GroundTag"))
+            isCollision = false;
+    }
+    //Awake 
     private void Awake()
     {
-        
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
-        
+        animator = gameObject.GetComponent<Animator>();
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
         sizeOfY = playerCollider.size.y;
         sizeOfY_Crouch = playerCollider.size.y - crouchPlayerSizeCollider;
         offsetOfY = playerCollider.offset.y;
         offsetOfY_Crouch = playerCollider.offset.y - crouchPlayerOffsetCollider;
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
 
     }
 
-    //Fixed Update
     private void FixedUpdate()
     {
-        verticalMovementAnimation(vertical);
         crouchAction(crouchActionCheck);
+        playerHorizontalMovement(horizontal);
+        verticalMovementAnimation(vertical);
     }
 
     //Update
@@ -50,6 +79,13 @@ public class PlayerController : MonoBehaviour
         animatorPlayerFun();  //function for animator parameters
         transformPlayerFun();
         restartPlayer();
+
+    }
+
+
+    public void pickUpKey()
+    {
+        scoreController.IncreaseScore(10);
     }
 
     //Vertical Movement Animation
@@ -57,17 +93,22 @@ public class PlayerController : MonoBehaviour
     {
         
         if (vertical > 0)
-        { 
-            jump = true;
-            rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);       
+        {
+            {
+                jump = true;
+                rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Impulse);
+            }
+            
+
         }
         else
         {
-            jump = false;          
+            jump = false;
         }
+     
     }
 
-    //Crouch Action Animation
+    //Crouch Action Animations
     void crouchAction(bool crouchActionCheck)
     {
         if (crouchActionCheck)
@@ -80,14 +121,12 @@ public class PlayerController : MonoBehaviour
             {
                 crouch = true;
                 crouch_down = true;
-                isRun = false;
                 speed = 0;
             }
             else
             {
                 crouch = true;
                 crouch_down = false;
-                isRun = false;
                 speed = 0;
             }
 
@@ -108,36 +147,30 @@ public class PlayerController : MonoBehaviour
     void transformPlayerFun()
     {
         //scale transform
-        Vector3 scale = transform.localScale;
+        Vector3 scale = transform.localScale;       //Rotation of Player
         if (horizontal < 0)
         {
-            
             scale.x = -1f * Mathf.Abs(scale.x);
-            animator.SetBool("isRunning", true);
+            
         }
         else if (horizontal > 0)
         {
-            
             scale.x = Mathf.Abs(scale.x);
-            animator.SetBool("isRunning", true);
-        }
-        else if (horizontal == 0)
-        {
-            
-            animator.SetBool("isRunning", false);
         }
 
         transform.localScale = scale;
+    }
 
-        //Horizontal Position transform 
+    //Horizontal Movement 
+    void playerHorizontalMovement(float horizontal)
+    {
         Vector3 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
-
         transform.position = position;
-
-        //Vertical Position
-        
-            
+        if (horizontal == 0 )
+            isRun = false;
+        else
+            isRun = true;
     }
 
     //Restart level
