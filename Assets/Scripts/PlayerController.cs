@@ -1,6 +1,7 @@
 ﻿
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
@@ -19,36 +20,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ScoreController scoreController;
 
+    
+
     float speed = 5f;
-    float jumpMovement = 3f;             
+    float jumpMovement = 150f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
-    float totalJumpTimer = 5f;
-    float jumpTimer;
     bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false;
-
     string horizontalMovement = "Horizontal";
     string verticalMovement = "Vertical";
-
-    bool isCollision = false;
-    
     float crouchPlayerSizeCollider = 0.8f;
     float crouchPlayerOffsetCollider = 0.4f;
     float restartPosition = -18f;
 
 
    
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("GroundTag"))
-            isCollision = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("GroundTag"))
-            isCollision = false;
-    }
+  
     //Awake 
     private void Awake()
     {
@@ -82,24 +69,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+   
     public void pickUpKey()
     {
         scoreController.IncreaseScore(10);
     }
 
+    public void PlayerKilledByChomper()
+    {
+        ReloadLevel();
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
     //Vertical Movement Animation
     void verticalMovementAnimation(float vertical)
     {
         
         if (vertical > 0)
         {
-            {
                 jump = true;
-                rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Impulse);
-            }
-            
-
+                rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);
         }
         else
         {
@@ -143,7 +135,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Transform Function
+    //Player Rotation 
     void transformPlayerFun()
     {
         //scale transform
@@ -178,7 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         if(gameObject.transform.position.y < restartPosition)
         {
-            gameObject.transform.position = new Vector2(0f, 0f);
+            ReloadLevel();
         }
     }
     //Animator Function
