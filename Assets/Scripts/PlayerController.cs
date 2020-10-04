@@ -77,12 +77,12 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerKilledByChomper()
     {
-        ReloadLevel();
+        ReloadLevel(0);
     }
 
-    private void ReloadLevel()
+    private void ReloadLevel(int levelIndex)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(levelIndex);
     }
     //Vertical Movement Animation
     void verticalMovementAnimation(float vertical)
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         if(gameObject.transform.position.y < restartPosition)
         {
-            ReloadLevel();
+            ReloadLevel(0);
         }
     }
     //Animator Function
