@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    float counter = 0f;
+    float JumpCounter = 0f;
     float speed = 5f;
     float jumpMovement = 150f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
@@ -91,26 +91,21 @@ public class PlayerController : MonoBehaviour
         
         if (vertical > 0)
         {
-
-           
-                counter += Time.deltaTime;
-            
-                if (counter <= 0.7f)
-                {
-                jump = true;
-                rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);
+               JumpCounter += Time.deltaTime;
+               if (JumpCounter <= 0.7f)
+               {
+                    jump = true;
+                    rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);
      
-                }
-            else
-            {
-
-                rb2d.AddForce(new Vector2(0f, 0f), ForceMode2D.Force);
-               
-            }
+               }
+               else
+               {
+                    rb2d.AddForce(new Vector2(0f, 0f), ForceMode2D.Force);
+               }
         }
         else
         {
-            counter = 0;
+            JumpCounter = 0;
             jump = false;
         }
      
