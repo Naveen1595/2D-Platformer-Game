@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ScoreController scoreController;
 
-    
 
+
+    float counter = 0f;
     float speed = 5f;
     float jumpMovement = 150f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
@@ -34,8 +35,8 @@ public class PlayerController : MonoBehaviour
     float restartPosition = -18f;
 
 
-   
-  
+    
+
     //Awake 
     private void Awake()
     {
@@ -90,11 +91,26 @@ public class PlayerController : MonoBehaviour
         
         if (vertical > 0)
         {
+
+           
+                counter += Time.deltaTime;
+            
+                if (counter <= 0.7f)
+                {
                 jump = true;
                 rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);
+     
+                }
+            else
+            {
+
+                rb2d.AddForce(new Vector2(0f, 0f), ForceMode2D.Force);
+               
+            }
         }
         else
         {
+            counter = 0;
             jump = false;
         }
      
