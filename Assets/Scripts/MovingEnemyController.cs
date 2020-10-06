@@ -7,7 +7,7 @@ public class MovingEnemyController : MonoBehaviour
 {
 
     float direction = 1;
-    float counter;
+    float counter = 0;
     float speed = 3f;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -27,7 +27,7 @@ public class MovingEnemyController : MonoBehaviour
     private void Update()
     {
         counter += Time.deltaTime;
-        if (counter >= 1.5f)
+        if (counter >= 2f)
         {
             direction = -1f * direction;
             counter = 0;
