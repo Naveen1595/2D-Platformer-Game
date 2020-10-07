@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
 
     [SerializeField]
+    private GameOverController gameOverController;
+
+    [SerializeField]
     private Animator animator;
 
     [SerializeField]
@@ -78,13 +81,11 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerKilledByChomper()
     {
-        ReloadLevel(0);
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
-    private void ReloadLevel(int levelIndex)
-    {
-        SceneManager.LoadScene(levelIndex);
-    }
+    
     //Vertical Movement Animation
     void verticalMovementAnimation(float vertical)
     {
@@ -181,7 +182,8 @@ public class PlayerController : MonoBehaviour
     {
         if(gameObject.transform.position.y < restartPosition)
         {
-            ReloadLevel(0);
+            gameOverController.PlayerDied();
+            this.enabled = false;
         }
     }
     //Animator Function

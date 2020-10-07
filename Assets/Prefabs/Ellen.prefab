@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 1456271417}
+  gameOverController: {fileID: 0}
   animator: {fileID: 399744412056611980}
   rb2d: {fileID: 1456271418}
   scoreController: {fileID: 0}
