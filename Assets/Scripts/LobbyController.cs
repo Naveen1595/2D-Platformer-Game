@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
 {
-    public Button PlayButton;
+    [SerializeField]
+    private Button PlayButton;
     private void Awake()
     {
         PlayButton.onClick.AddListener(LevelOne);
@@ -14,6 +15,6 @@ public class LobbyController : MonoBehaviour
     
     public void LevelOne()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

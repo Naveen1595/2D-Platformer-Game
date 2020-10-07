@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
-    public Button buttonRestart;
+    [SerializeField]
+    private Button buttonRestart;
 
    
     private void Awake()
@@ -18,8 +19,8 @@ public class GameOverController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void ReloadLevel()
+    public void ReloadLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

@@ -23,8 +23,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ScoreController scoreController;
 
+    [SerializeField]
+     private GameObject[] Heart;
 
-
+    int lifeLeft = 2;
     float JumpCounter = 0f;
     float speed = 5f;
     float jumpMovement = 150f;             
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     float crouchPlayerOffsetCollider = 0.4f;
     float restartPosition = -18f;
 
+    Vector2 checkPoint1 = new Vector2(3f, -1f);
 
     
 
@@ -81,8 +84,17 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerKilledByChomper()
     {
-        gameOverController.PlayerDied();
-        this.enabled = false;
+        if(lifeLeft >= 0)
+        {
+            Heart[lifeLeft--].SetActive(false);
+            gameObject.transform.position = checkPoint1;
+        }
+        else
+        {
+            gameOverController.PlayerDied();
+            this.enabled = false;
+        }
+        
     }
 
     
@@ -182,8 +194,16 @@ public class PlayerController : MonoBehaviour
     {
         if(gameObject.transform.position.y < restartPosition)
         {
-            gameOverController.PlayerDied();
-            this.enabled = false;
+            if (lifeLeft >= 0)
+            {
+                Heart[lifeLeft--].SetActive(false);
+                gameObject.transform.position = checkPoint1;
+            }
+            else
+            {
+                gameOverController.PlayerDied();
+                this.enabled = false;
+            }
         }
     }
     //Animator Function
