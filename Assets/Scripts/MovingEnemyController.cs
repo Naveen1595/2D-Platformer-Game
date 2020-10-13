@@ -10,6 +10,8 @@ public class MovingEnemyController : MonoBehaviour
     float counter;
     float speed = 3f;
 
+    [SerializeField]
+    private string Stopper;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
@@ -17,8 +19,16 @@ public class MovingEnemyController : MonoBehaviour
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.PlayerKilledByChomper();
         }
+
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(Stopper))
+        {
+            direction = -1f * direction;
+        }
+    }
     private void FixedUpdate()
     {
         EnemyMovement(direction);
@@ -26,12 +36,12 @@ public class MovingEnemyController : MonoBehaviour
 
     private void Update()
     {
-        counter += Time.deltaTime;
+        /*counter += Time.deltaTime;
         if (counter >= 1.5f)
         {
             direction = -1f * direction;
             counter = 0;
-        }
+        }*/
 
         transformEnemy();
     }

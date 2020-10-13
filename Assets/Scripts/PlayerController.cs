@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     int lifeLeft = 2;
     float JumpCounter = 0f;
     float speed = 5f;
-    float jumpMovement = 150f;             
+    float jumpMovement = 3f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
     bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false;
@@ -41,8 +41,9 @@ public class PlayerController : MonoBehaviour
 
     Vector2 checkPoint1 = new Vector2(3f, -1f);
 
-    
 
+
+  
     //Awake 
     private void Awake()
     {
@@ -108,7 +109,7 @@ public class PlayerController : MonoBehaviour
                if (JumpCounter <= 0.7f)
                {
                     jump = true;
-                    rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Force);
+                    rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Impulse);
      
                }
                else

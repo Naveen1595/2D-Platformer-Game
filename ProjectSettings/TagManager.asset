@@ -6,7 +6,7 @@ TagManager:
   tags:
   - GroundTag
   - EnemyMovementStopper
-  - Test
+  - PlayerDetector
   layers:
   - Default
   - TransparentFX

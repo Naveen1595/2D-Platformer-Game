@@ -117,7 +117,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -162,8 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 1456271417}
-  gameOverController: {fileID: 6623278959709750553, guid: c35c8a473013bdd46a05dbd7a0a3f015,
-    type: 3}
+  gameOverController: {fileID: 0}
   animator: {fileID: 399744412056611980}
   rb2d: {fileID: 1456271418}
   scoreController: {fileID: 0}
