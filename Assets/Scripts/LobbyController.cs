@@ -18,7 +18,7 @@ public class LobbyController : MonoBehaviour
     {
         ResumeButton.onClick.AddListener(Levelslist);
         QuitButton.onClick.AddListener(QuitGame);
-        QuitButton.onClick.AddListener(NewGame);
+        NewButton.onClick.AddListener(NewGame);
     }
     
     public void Levelslist()
@@ -30,10 +30,12 @@ public class LobbyController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        
     }
 
     public void NewGame()
     {
-        Application.Quit();
+        PlayerPrefs.DeleteAll();
+        
     }
 }

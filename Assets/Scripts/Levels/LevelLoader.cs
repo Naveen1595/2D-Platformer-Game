@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject LockedPopUp;
+
+    [SerializeField]
+    private Button CLoseButton;
+
     private Button button;
 
     [SerializeField]
@@ -14,6 +20,7 @@ public class LevelLoader : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(onClick);
+        CLoseButton.onClick.AddListener(CLoseButtonFun);
     }
 
     private void onClick()
@@ -22,7 +29,8 @@ public class LevelLoader : MonoBehaviour
         switch(levelStatus)
         {
             case LevelStatus.Locked:
-                Debug.Log("Sorry It's Locked");
+                //Debug.Log("Sorry It's Locked");
+                LockedPopUp.SetActive(true);
                 break;
             case LevelStatus.Unlocked:
                 SceneManager.LoadScene(LevelName);
@@ -31,6 +39,11 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene(LevelName);
                 break;
         }
+    }
+
+    private void CLoseButtonFun()
+    {
+        LockedPopUp.SetActive(false);
     }
 
 }
