@@ -29,10 +29,11 @@ public class PlayerController : MonoBehaviour
     int lifeLeft = 2;
     float JumpCounter = 0f;
     float speed = 5f;
-    float jumpMovement = 0.5f;             
+    float inJumpSpeed = 3.5f;
+    float jumpMovement = 2f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
-    bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false;
+    bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false, isDeath = false;
     string horizontalMovement = "Horizontal";
     string verticalMovement = "Vertical";
     float crouchPlayerSizeCollider = 0.8f;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             Heart[lifeLeft--].SetActive(false);
             gameObject.transform.position = checkPoint1;
+            
         }
         else
         {
@@ -106,7 +108,7 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0)
         {
                JumpCounter += Time.deltaTime;
-               if (JumpCounter <= 0.7f)
+               if (JumpCounter <= 0.6f)
                {
                     jump = true;
                     rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Impulse);
@@ -182,7 +184,16 @@ public class PlayerController : MonoBehaviour
     void playerHorizontalMovement(float horizontal)
     {
         Vector3 position = transform.position;
-        position.x = position.x + horizontal * speed * Time.deltaTime;
+        if (jump == true)
+        {
+            position.x = position.x + horizontal * inJumpSpeed * Time.deltaTime;
+        }
+        else
+        {
+            position.x = position.x + horizontal * speed * Time.deltaTime;
+        }
+        
+        
         transform.position = position;
         if (horizontal == 0 )
             isRun = false;
@@ -215,5 +226,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isCrouch", crouch);
         animator.SetBool("isCrouch_down", crouch_down);
         animator.SetBool("isRunning", isRun);
+        animator.SetBool("isDeath", isDeath);
     }
 }
