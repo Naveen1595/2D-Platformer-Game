@@ -109,4 +109,9 @@ public enum Sounds
     PlayerMove,
     PlayerDeath,
     EnemyDeath,
+    GameOver,
+    ItemPickUp,
+    ChomperMovement,
+    PlayerJump,
+    PlayerRestart,
 }

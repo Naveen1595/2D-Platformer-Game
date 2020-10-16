@@ -8,7 +8,9 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerController>() !=null)
         {
+            
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             playerController.PlayerKilledByChomper();
         }
     }

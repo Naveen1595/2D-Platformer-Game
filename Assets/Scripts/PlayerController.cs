@@ -110,7 +110,8 @@ public class PlayerController : MonoBehaviour
                JumpCounter += Time.deltaTime;
                if (JumpCounter <= 0.6f)
                {
-                    jump = true;
+                SoundManager.Instance.Play(Sounds.PlayerJump);
+                jump = true;
                     rb2d.AddForce(new Vector2(0f, jumpMovement), ForceMode2D.Impulse);
      
                }
@@ -183,6 +184,7 @@ public class PlayerController : MonoBehaviour
     //Horizontal Movement 
     void playerHorizontalMovement(float horizontal)
     {
+        SoundManager.Instance.Play(Sounds.PlayerMove);
         Vector3 position = transform.position;
         if (jump == true)
         {
@@ -204,10 +206,12 @@ public class PlayerController : MonoBehaviour
     //Restart level
     void restartPlayer()
     {
+
         if(gameObject.transform.position.y < restartPosition)
         {
             if (lifeLeft >= 0)
             {
+                SoundManager.Instance.Play(Sounds.PlayerRestart);
                 Heart[lifeLeft--].SetActive(false);
                 gameObject.transform.position = checkPoint1;
             }
