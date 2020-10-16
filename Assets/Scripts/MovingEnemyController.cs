@@ -36,12 +36,6 @@ public class MovingEnemyController : MonoBehaviour
 
     private void Update()
     {
-        /*counter += Time.deltaTime;
-        if (counter >= 1.5f)
-        {
-            direction = -1f * direction;
-            counter = 0;
-        }*/
 
         transformEnemy();
     }
@@ -56,7 +50,7 @@ public class MovingEnemyController : MonoBehaviour
     void transformEnemy()
     {
         //scale transform
-        Vector3 scale = transform.localScale;       //Rotation of Player
+        Vector3 scale = transform.localScale;       //Rotation of Enemy
         if (direction < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);

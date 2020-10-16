@@ -29,13 +29,15 @@ public class LevelLoader : MonoBehaviour
         switch(levelStatus)
         {
             case LevelStatus.Locked:
-                //Debug.Log("Sorry It's Locked");
+                SoundManager.Instance.Play(Sounds.ButtonClick);
                 LockedPopUp.SetActive(true);
                 break;
             case LevelStatus.Unlocked:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
                 SceneManager.LoadScene(LevelName);
                 break;
             case LevelStatus.Completed:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
                 SceneManager.LoadScene(LevelName);
                 break;
         }
@@ -43,6 +45,7 @@ public class LevelLoader : MonoBehaviour
 
     private void CLoseButtonFun()
     {
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         LockedPopUp.SetActive(false);
     }
 

@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.79607844}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92941177}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -291,6 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f90cd822a00d0c4887b39574fbfe152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LockedPopUp: {fileID: 0}
+  CLoseButton: {fileID: 0}
   LevelName: LobbyScene
 --- !u!1 &2814454076117401886
 GameObject:
@@ -744,5 +746,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonRestart: {fileID: 2814454076530328382}
   MainMenu: {fileID: 2814454076093424807}
-  LevelDisplay: {fileID: 0}
-  ScoreDisplay: {fileID: 0}
