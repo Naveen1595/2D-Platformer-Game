@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
 
     [SerializeField]
+    private FloatingFloorController floatingFloorController;
+
+    [SerializeField]
     private GameOverController gameOverController;
 
     [SerializeField]
@@ -38,13 +41,14 @@ public class PlayerController : MonoBehaviour
     string verticalMovement = "Vertical";
     float crouchPlayerSizeCollider = 0.8f;
     float crouchPlayerOffsetCollider = 0.4f;
-    float restartPosition = -18f;
+    float restartPosition = -20f;
 
-    Vector2 checkPoint1 = new Vector2(3f, -1f);
+    Vector2 checkPoint1 = new Vector2(3f, 0f);
 
 
+   
 
-  
+
     //Awake 
     private void Awake()
     {
@@ -181,6 +185,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
+    
     //Horizontal Movement 
     void playerHorizontalMovement(float horizontal)
     {
