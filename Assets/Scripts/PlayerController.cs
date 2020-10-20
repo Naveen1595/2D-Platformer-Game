@@ -36,17 +36,32 @@ public class PlayerController : MonoBehaviour
     float jumpMovement = 2.2f;             
     float crouchTime;                     //new animation for crouch down so that player remains in crouch position till ctrl button is pressed
     float totalCrouchTime = 10f;           //total time till crouch animation will run after that crouch down animation will start
-    bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false, isDeath = false;
+    bool jump = false, isRun = false, crouch = false, crouch_down = false, crouchActionCheck = false, isDeath = false,isGround = false;
     string horizontalMovement = "Horizontal";
     string verticalMovement = "Vertical";
+    string Grounded = "GroundTag";
     float crouchPlayerSizeCollider = 0.8f;
     float crouchPlayerOffsetCollider = 0.4f;
     float restartPosition = -20f;
 
     Vector2 checkPoint1 = new Vector2(3f, 0f);
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(Grounded))
+        {
+            isGround = true;
+        }
+    }
 
-   
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(Grounded))
+        {
+            isGround = false;
+        }
+    }
+
 
 
     //Awake 
@@ -191,18 +206,18 @@ public class PlayerController : MonoBehaviour
     {
         SoundManager.Instance.Play(Sounds.PlayerMove);
         Vector3 position = transform.position;
-        if (jump == true)
+        if (isGround == false && jump ==true)
         {
             position.x = position.x + horizontal * inJumpSpeed * Time.deltaTime;
         }
-        else
+        else if(isGround == true && jump == false)
         {
             position.x = position.x + horizontal * speed * Time.deltaTime;
         }
         
         
         transform.position = position;
-        if (horizontal == 0 )
+        if (horizontal == 0 || isGround == false)
             isRun = false;
         else
             isRun = true;
